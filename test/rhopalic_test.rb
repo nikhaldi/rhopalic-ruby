@@ -1,10 +1,12 @@
+require 'param_test'
 require 'test/unit'
 
 require 'rhopalic'
 
-class RhopalicTest < Test::Unit::TestCase
+class RhopalicTest < ActiveSupport::TestCase
 
-  def test_foo
-    assert true
+  param_test "phrase %s is rhopalic",
+  ["a be"] do |phrase|
+    assert Rhopalic.is_rhopalic(phrase)
   end
 end
