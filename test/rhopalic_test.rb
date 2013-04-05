@@ -17,7 +17,7 @@ class RhopalicTest < ActiveSupport::TestCase
     #"While shadows, lengthening, attenuate"
     "Lines thicken approaching termination.",
   ] do |phrase|
-    assert Rhopalic.is_rhopalic(phrase)
+    assert Rhopalic.rhopalic?(phrase)
   end
 
   param_test "phrase %s is not rhopalic", [
@@ -25,12 +25,12 @@ class RhopalicTest < ActiveSupport::TestCase
     "be do",
     "a be ce",
   ] do |phrase|
-    assert !Rhopalic.is_rhopalic(phrase)
+    assert !Rhopalic.rhopalic?(phrase)
   end
 
   # TODO doesn't work because of word definition
   # param_test "phrase %s with accented characters is rhopalic",
   # ["the café"] do |phrase|
-  #   assert Rhopalic.is_rhopalic(phrase)
+  #   assert Rhopalic.rhopalic?(phrase)
   # end
 end

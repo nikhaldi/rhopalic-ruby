@@ -2,7 +2,7 @@ require 'lingua'
 
 class Rhopalic
 
-  def self.is_rhopalic(phrase)
+  def self.rhopalic?(phrase)
     last_letter_count = 0
     last_syllable_count = 0
 
