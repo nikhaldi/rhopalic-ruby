@@ -7,9 +7,10 @@ class Rhopalic
     last_syllable_count = 0
 
     # TODO this word definition is too simple. Needs to handle:
-    # - apostrophes in words
+    # - apostrophes and hyphens in words
     # - non-ASCII characters
     # - numbers
+    # - multiplied letters
     phrase.scan(/\w+/) do |match|
       letter_count = match.length
       syllable_count = Lingua::EN::Syllable.syllables(match)
