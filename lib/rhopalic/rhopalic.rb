@@ -3,9 +3,13 @@ require 'lingua'
 class Rhopalic
 
   def self.is_rhopalic(phrase)
-    # TODO handle apostrophes
     last_letter_count = 0
     last_syllable_count = 0
+
+    # TODO this word definition is too simple. Needs to handle:
+    # - apostrophes in words
+    # - non-ASCII characters
+    # - numbers
     phrase.scan(/\w+/) do |match|
       letter_count = match.length
       syllable_count = Lingua::EN::Syllable.syllables(match)
