@@ -16,6 +16,8 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     #"Add extra syllables gradually",
     #"While shadows, lengthening, attenuate",
     "Lines thicken approaching termination.",
+    "it's fancy",
+    "IT'S FANCY",
   ] do |phrase|
     assert Rhopalic.rhopalic?(phrase)
   end

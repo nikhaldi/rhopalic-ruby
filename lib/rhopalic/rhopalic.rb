@@ -1,5 +1,6 @@
 require 'lingua'
 
+require 'rhopalic/contractions'
 require 'rhopalic/phrase'
 
 module Rhopalic
@@ -20,6 +21,22 @@ module Rhopalic
     phrase.scan(/[[:alpha:]]+/) do
       match = Regexp.last_match
       word = match[0]
+      index = match.begin(0)
+
+      # Checking whether the previous and this word form a known contraction
+      if !indices.empty? && (phrase[indices.last + words.last.length] == "'") &&
+          (index == indices.last + words.last.length + 1)
+        contraction = words.last + "'" + word
+        if syllable_count = CONTRACTIONS[contraction.downcase]
+          last_letter_count = contraction.size
+          last_syllable_count = syllable_count
+          words[-1] = contraction
+          syllable_counts[-1] = syllable_count
+          # TODO prevent additional contraction
+          next
+        end
+      end
+
       letter_count = word.length
       syllable_count = Lingua::EN::Syllable.syllables(word)
 
