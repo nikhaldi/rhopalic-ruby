@@ -16,6 +16,7 @@ module Rhopalic
     # TODO this word definition is too simple. Needs to handle:
     # - numbers
     # - multiplied letters
+    # - possessives
     phrase.scan(/[[:alpha:]]+/) do
       match = Regexp.last_match
       word = match[0]

@@ -1,9 +1,8 @@
-require 'param_test'
 require 'test/unit'
 
-require 'rhopalic'
+require 'rhopalic/phrase'
 
-class Rhopalic::PhraseTest < ActiveSupport::TestCase
+class Rhopalic::PhraseTest < Test::Unit::TestCase
 
   def test_constructor_inits_accessors
     phrase = Rhopalic::Phrase.new("one", ["one"], [0], [1])
