@@ -46,11 +46,9 @@ module Rhopalic
 
         if @dictionary
           syllable_count = @dictionary.syllable_count(word)
-          in_dictionary.push(!syllable_count.nil?)
-          if syllable_count.nil?
-            syllable_count = Lingua::EN::Syllable.syllables(word)
-          end
-        else
+          in_dictionary.push(true) unless syllable_count.nil?
+        end
+        if !syllable_count
           syllable_count = Lingua::EN::Syllable.syllables(word)
           in_dictionary.push(false)
         end
