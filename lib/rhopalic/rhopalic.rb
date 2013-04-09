@@ -14,8 +14,6 @@ module Rhopalic
     syllable_counts = []
 
     # TODO this word definition is too simple. Needs to handle:
-    # - apostrophes and hyphens in words
-    # - non-ASCII characters
     # - numbers
     # - multiplied letters
     phrase.scan(/[[:alpha:]]+/) do
