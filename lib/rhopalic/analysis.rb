@@ -6,16 +6,20 @@ require 'rhopalic/phrase'
 module Rhopalic
   class Analysis
 
+    def initialize(dictionary=nil)
+      @dictionary = dictionary
+    end
+
     def analyze_phrase(phrase)
       words = []
       indices = []
       syllable_counts = []
+      in_dictionary = []
       is_letter_rhopalic = true
       is_syllable_rhopalic = true
 
       # TODO this word definition is too simple. Needs to handle:
       # - numbers
-      # - multiplied letters
       phrase.scan(/[[:alpha:]]+/) do
         match = Regexp.last_match
         word = match[0]
@@ -28,7 +32,10 @@ module Rhopalic
           contraction = words.last + "'" + word
           if (syllable_count = CONTRACTIONS[contraction.downcase]) || word.downcase == "s"
             words[-1] = contraction
-            syllable_counts[-1] = syllable_count if syllable_count
+            if syllable_count
+              syllable_counts[-1] = syllable_count
+              in_dictionary[-1] = true
+            end
 
             is_letter_rhopalic = false unless word_sequence_rhopalic?(words)
             is_syllable_rhopalic = false unless syllable_sequence_rhopalic?(syllable_counts)
@@ -37,7 +44,17 @@ module Rhopalic
           end
         end
 
-        syllable_count = Lingua::EN::Syllable.syllables(word)
+        if @dictionary
+          syllable_count = @dictionary.syllable_count(word)
+          in_dictionary.push(!syllable_count.nil?)
+          if syllable_count.nil?
+            syllable_count = Lingua::EN::Syllable.syllables(word)
+          end
+        else
+          syllable_count = Lingua::EN::Syllable.syllables(word)
+          in_dictionary.push(false)
+        end
+
         words.push(word)
         indices.push(match.begin(0))
         syllable_counts.push(syllable_count)
@@ -47,7 +64,8 @@ module Rhopalic
         return nil unless is_letter_rhopalic || is_syllable_rhopalic
       end
 
-      return Phrase.new(phrase, is_letter_rhopalic, is_syllable_rhopalic, words, indices, syllable_counts)
+      return Phrase.new(phrase, is_letter_rhopalic, is_syllable_rhopalic, words, indices,
+          syllable_counts, in_dictionary)
     end
 
     private

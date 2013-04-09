@@ -23,9 +23,6 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
   param_test "phrase %s is syllable-rhopalic", [
     "a",
     "Words along rhopalic pentameters",
-    # TODO these don't work. pull in dictionary?
-    #"Add extra syllables gradually",
-    #"While shadows, lengthening, attenuate",
     "Lines thicken approaching termination.",
     "it's fancy",
     "IT'S FANCY",
