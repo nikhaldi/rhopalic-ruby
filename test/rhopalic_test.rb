@@ -14,6 +14,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "it's fancy",
     "IT'S FANCY",
     "it's'bleak matter",
+    "rose's stencil",
   ] do |phrase|
     assert Rhopalic.letter_rhopalic?(phrase)
     assert Rhopalic.rhopalic?(phrase)
@@ -29,6 +30,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "it's fancy",
     "IT'S FANCY",
     "bloom beta",
+    "phil's matter"
   ] do |phrase|
     assert Rhopalic.syllable_rhopalic?(phrase)
     assert Rhopalic.rhopalic?(phrase)

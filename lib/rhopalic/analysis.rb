@@ -16,19 +16,19 @@ module Rhopalic
       # TODO this word definition is too simple. Needs to handle:
       # - numbers
       # - multiplied letters
-      # - possessives
       phrase.scan(/[[:alpha:]]+/) do
         match = Regexp.last_match
         word = match[0]
         index = match.begin(0)
 
         # Checking whether the previous and this word form a known contraction
+        # or possessive.
         if !indices.empty? && (phrase[indices.last + words.last.length] == "'") &&
             (index == indices.last + words.last.length + 1)
           contraction = words.last + "'" + word
-          if syllable_count = CONTRACTIONS[contraction.downcase]
+          if (syllable_count = CONTRACTIONS[contraction.downcase]) || word.downcase == "s"
             words[-1] = contraction
-            syllable_counts[-1] = syllable_count
+            syllable_counts[-1] = syllable_count if syllable_count
 
             is_letter_rhopalic = false unless word_sequence_rhopalic?(words)
             is_syllable_rhopalic = false unless syllable_sequence_rhopalic?(syllable_counts)
