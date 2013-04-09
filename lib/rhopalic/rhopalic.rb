@@ -17,7 +17,7 @@ module Rhopalic
     # - non-ASCII characters
     # - numbers
     # - multiplied letters
-    phrase.scan(/\w+/) do
+    phrase.scan(/[[:alpha:]]+/) do
       match = Regexp.last_match
       word = match[0]
       letter_count = word.length

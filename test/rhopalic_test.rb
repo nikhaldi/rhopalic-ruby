@@ -14,7 +14,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "Words along rhopalic pentameters",
     # TODO these don't work. pull in dictionary?
     #"Add extra syllables gradually",
-    #"While shadows, lengthening, attenuate"
+    #"While shadows, lengthening, attenuate",
     "Lines thicken approaching termination.",
   ] do |phrase|
     assert Rhopalic.rhopalic?(phrase)
@@ -31,11 +31,10 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     assert !Rhopalic.rhopalic?(phrase)
   end
 
-  # TODO doesn't work because of word definition
-  # param_test "phrase %s with accented characters is rhopalic",
-  # ["the café"] do |phrase|
-  #   assert Rhopalic.rhopalic?(phrase)
-  # end
+  param_test "phrase %s with accented characters is rhopalic",
+  ["the café"] do |phrase|
+    assert Rhopalic.rhopalic?(phrase)
+  end
 
   def test_analyze_phrase_not_rhopalic
     assert_nil Rhopalic.analyze_phrase("three two")
