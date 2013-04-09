@@ -5,15 +5,17 @@ require 'rhopalic/phrase'
 class Rhopalic::PhraseTest < Test::Unit::TestCase
 
   def test_constructor_inits_accessors
-    phrase = Rhopalic::Phrase.new("one", ["one"], [0], [1])
+    phrase = Rhopalic::Phrase.new("one", true, true, ["one"], [0], [1])
     assert_equal "one", phrase.phrase
+    assert phrase.letter_rhopalic?
+    assert phrase.syllable_rhopalic?
     assert_equal ["one"], phrase.words
     assert_equal [0], phrase.indices
     assert_equal [1], phrase.syllable_counts
   end
 
   def test_each_word
-    phrase = Rhopalic::Phrase.new("one four", ["one", "four"], [0, 4], [1, 1])
+    phrase = Rhopalic::Phrase.new("one four", true, false, ["one", "four"], [0, 4], [1, 1])
     results = []
     phrase.each_word do |word, index, syllable_count|
       results.push([word, index, syllable_count])

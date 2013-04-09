@@ -13,6 +13,8 @@ module Rhopalic
       words = []
       indices = []
       syllable_counts = []
+      is_letter_rhopalic = true
+      is_syllable_rhopalic = true
 
       # TODO this word definition is too simple. Needs to handle:
       # - numbers
@@ -28,6 +30,7 @@ module Rhopalic
             (index == indices.last + words.last.length + 1)
           contraction = words.last + "'" + word
           if syllable_count = CONTRACTIONS[contraction.downcase]
+            # TODO makes this non-letter rhopalic for sure
             last_letter_count = contraction.size
             last_syllable_count = syllable_count
             words[-1] = contraction
@@ -39,12 +42,13 @@ module Rhopalic
         letter_count = word.length
         syllable_count = Lingua::EN::Syllable.syllables(word)
 
-        if syllable_count < last_syllable_count ||
-           letter_count < last_letter_count ||
-            (last_letter_count > 0 && last_letter_count != letter_count - 1 &&
-            last_syllable_count > 0 && last_syllable_count != syllable_count - 1)
-          return nil
+        if last_letter_count > 0 && last_letter_count + 1 != letter_count
+          is_letter_rhopalic = false
         end
+        if last_syllable_count > 0 && last_syllable_count + 1 != syllable_count
+          is_syllable_rhopalic = false
+        end
+        return nil unless is_letter_rhopalic || is_syllable_rhopalic
 
         last_letter_count = letter_count
         last_syllable_count = syllable_count
@@ -54,7 +58,7 @@ module Rhopalic
         syllable_counts.push(syllable_count)
       end
 
-      return Phrase.new(phrase, words, indices, syllable_counts)
+      return Phrase.new(phrase, is_letter_rhopalic, is_syllable_rhopalic, words, indices, syllable_counts)
     end
 
   end
