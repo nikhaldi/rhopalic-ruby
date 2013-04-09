@@ -5,7 +5,7 @@ require 'test/unit'
 
 require 'rhopalic'
 
-class RhopalicTest < ActiveSupport::TestCase
+class Rhopalic::RhopalicTest < ActiveSupport::TestCase
 
   param_test "phrase %s is rhopalic", [
     "a",
@@ -24,6 +24,8 @@ class RhopalicTest < ActiveSupport::TestCase
     "a b",
     "be do",
     "a be ce",
+    # TODO doesn't work because 'blonde' not recognized as one syllable
+    #"going blonde monday"
   ] do |phrase|
     assert !Rhopalic.rhopalic?(phrase)
   end
@@ -33,4 +35,16 @@ class RhopalicTest < ActiveSupport::TestCase
   # ["the café"] do |phrase|
   #   assert Rhopalic.rhopalic?(phrase)
   # end
+
+  def test_analyze_phrase_not_rhopalic
+    assert_nil Rhopalic.analyze_phrase("three two")
+  end
+
+  def test_analyze_phrase
+    phrase = Rhopalic.analyze_phrase("two four")
+    assert_equal "two four", phrase.phrase
+    assert_equal ["two", "four"], phrase.words
+    assert_equal [0, 4], phrase.indices
+    assert_equal [1, 1], phrase.syllable_counts
+  end
 end
