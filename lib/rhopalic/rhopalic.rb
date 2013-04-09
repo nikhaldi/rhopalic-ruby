@@ -32,7 +32,6 @@ module Rhopalic
           last_syllable_count = syllable_count
           words[-1] = contraction
           syllable_counts[-1] = syllable_count
-          # TODO prevent additional contraction
           next
         end
       end

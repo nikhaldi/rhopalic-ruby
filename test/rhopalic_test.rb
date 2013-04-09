@@ -18,6 +18,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "Lines thicken approaching termination.",
     "it's fancy",
     "IT'S FANCY",
+    "it's'bleak matter",
   ] do |phrase|
     assert Rhopalic.rhopalic?(phrase)
   end
