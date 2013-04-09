@@ -1,7 +1,15 @@
 module Rhopalic
 
+  # A dictionary that maps words to of syllables. Can be passed into
+  # Rhopalic::Analysis to improve accuracy of syllable detection. Input
+  # is a pronunciation file in the format of the CMU pronunciation
+  # dictionary. See http://www.speech.cs.cmu.edu/cgi-bin/cmudict for
+  # details. The latest dictionary file from CMU should work out of the
+  # box.
   class Dictionary
 
+    # Initializes a dictionary from an enumberable source of dictionary
+    # entries, e.g., an open dictionary file.
     def initialize(input_source)
       @input_source = input_source
       make_dictionary

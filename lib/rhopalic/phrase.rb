@@ -2,6 +2,7 @@ require 'lingua'
 
 module Rhopalic
 
+  # A rhopalic phrase with all the artifacts from the rhopalic analysis.
   class Phrase
 
     attr_reader :phrase, :is_letter_rhopalic, :is_syllable_rhopalic, :words, :indices,

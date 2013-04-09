@@ -1,5 +1,6 @@
 module Rhopalic
 
+  # Known contractions in English mapped to syllable counts.
   CONTRACTIONS = {
     "aren't" => 1,
     "can't" => 1,
