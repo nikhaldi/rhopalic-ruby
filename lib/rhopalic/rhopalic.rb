@@ -23,8 +23,8 @@ module Rhopalic
       letter_count = word.length
       syllable_count = Lingua::EN::Syllable.syllables(word)
 
-      # TODO letter count should never go down
       if syllable_count < last_syllable_count ||
+         letter_count < last_letter_count ||
           (last_letter_count > 0 && last_letter_count != letter_count - 1 &&
           last_syllable_count > 0 && last_syllable_count != syllable_count - 1)
         return nil

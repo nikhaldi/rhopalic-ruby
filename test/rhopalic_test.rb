@@ -26,6 +26,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "a be ce",
     # TODO doesn't work because 'blonde' not recognized as one syllable
     #"going blonde monday"
+    "bloom beta",
   ] do |phrase|
     assert !Rhopalic.rhopalic?(phrase)
   end
