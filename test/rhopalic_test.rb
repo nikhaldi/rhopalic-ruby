@@ -38,8 +38,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "a b",
     "be do",
     "a be ce",
-    # TODO doesn't work because 'blonde' not recognized as one syllable
-    #"going blonde monday"
+    "a it's fancy",
   ] do |phrase|
     assert !Rhopalic.rhopalic?(phrase)
   end
