@@ -1,8 +1,8 @@
 rhopalic
 ========
 
-A library to detect rhopalic phrases in English, i.e., a phrase in which each word contains
-one letter or one syllable more than the previous word.
+A Ruby library to detect rhopalic phrases in English, i.e., a phrase in which each
+word contains one letter or one syllable more than the previous word.
 
 ## Usage
 
