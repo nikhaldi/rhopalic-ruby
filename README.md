@@ -20,10 +20,7 @@ counting use the [CMU pronunciation dictionary](http://www.speech.cs.cmu.edu/cgi
 
     > require 'rhopalic'
     > require 'rhopalic/dictionary'
-	> dict = nil
-	> File.open('cmudict.0.7a') do |f|
-	*   dict = Rhopalic::Dictionary.new(f)
-	> end
+	> dict = Rhopalic::Dictionary.from_file('cmudict.0.7a')
 	=> ...
 	> analysis = Rhopalic::Analysis.new(dict)
 	=> ...

@@ -8,7 +8,15 @@ module Rhopalic
   # box.
   class Dictionary
 
-    # Initializes a dictionary from an enumberable source of dictionary
+    def self.from_file(filename)
+      dict = nil
+      File.open(filename) do |file|
+        dict = Dictionary.new(file)
+      end
+      dict
+    end
+
+    # Initializes a dictionary from an enumerable source of dictionary
     # entries, e.g., an open dictionary file.
     def initialize(input_source)
       @input_source = input_source
