@@ -10,12 +10,12 @@ For simple yes or no answers about whether a phrase is rhopalic:
 
 	> require 'rhopalic'
 	=> true
-	> Rhopalic.letter_rhopalic?("I do not know where family doctors acquired illegibly perplexing handwriting; nevertheless, extraordinary pharmaceutical intellectuality, counterbalancing indecipherability, transcendentalizes intercommunications' incomprehensibleness.")
+	> Rhopalic.letter_rhopalic?("I do not know where family doctors acquired illegibly perplexing handwriting.")
 	=> true
 	> Rhopalic.syllable_rhopalic?("Lines thicken approaching termination.")
 	=> true
 
-There is no exact algorithm to count syllables in English. For more accurate syllable
+There is no exact algorithm for counting syllables in English. For more accurate syllable
 counting use the [CMU pronunciation dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict):
 
     > require 'rhopalic'
