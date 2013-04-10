@@ -4,6 +4,8 @@ rhopalic
 A Ruby library to detect rhopalic phrases in English, i.e., a phrase in which each
 word contains one letter or one syllable more than the previous word.
 
+Available as [a gem](https://rubygems.org/gems/rhopalic).
+
 ## Usage
 
 For simple yes or no answers about whether a phrase is rhopalic:
