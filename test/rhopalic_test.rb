@@ -48,8 +48,13 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
   end
 
   param_test "phrase %s with numbers is not rhopalic",
-  ["foo bar2"] do |phrase|
+  ["foo bar2", "foo 22 bar"] do |phrase|
     assert !Rhopalic.rhopalic?(phrase)
+  end
+
+  param_test "phrase %s with numbers is rhopalic",
+  ["1 random diacrit", "2 20 revolvers"] do |phrase|
+    assert Rhopalic.rhopalic?(phrase)
   end
 
   def test_analyze_phrase_not_rhopalic

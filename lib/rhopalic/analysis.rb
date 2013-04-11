@@ -1,4 +1,5 @@
 require 'lingua'
+require 'numbers_and_words'
 
 require 'rhopalic/contractions'
 require 'rhopalic/phrase'
@@ -18,17 +19,17 @@ module Rhopalic
       is_letter_rhopalic = true
       is_syllable_rhopalic = true
 
-      # TODO this word definition is too simple. Needs to handle:
-      # - numbers
       phrase.scan(/\b[[:alpha:]\d]+\b/) do
         match = Regexp.last_match
         word = match[0]
         index = match.begin(0)
+        is_number = false
 
         # Bail out on words that contain numbers, unless we can pronounce the number
         # as a whole word.
         word.match(/\d+/) do |match|
           return nil if match[0].size != word.size
+          is_number = true
         end
 
         # Checking whether the previous and this word form a known contraction
@@ -50,12 +51,24 @@ module Rhopalic
           end
         end
 
+        # If the words is a series of digits, count syllables based on spelling the
+        # number out, but ignore it if the number doesn't translate to a single word.
+        syllable_counting_word = word
+        if is_number
+          number_as_words = word.to_i.to_words
+          if number_as_words.match(/^\w+$/)
+            syllable_counting_word = number_as_words
+          else
+            return nil
+          end
+        end
+
         if @dictionary
-          syllable_count = @dictionary.syllable_count(word)
+          syllable_count = @dictionary.syllable_count(syllable_counting_word)
           in_dictionary.push(true) unless syllable_count.nil?
         end
         if !syllable_count
-          syllable_count = Lingua::EN::Syllable.syllables(word)
+          syllable_count = Lingua::EN::Syllable.syllables(syllable_counting_word)
           in_dictionary.push(false)
         end
 

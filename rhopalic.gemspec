@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'Detects rhopalic phrases'
 
   s.add_runtime_dependency 'lingua', '~> 0.6.2'
+  s.add_runtime_dependency 'numbers_and_words', '~> 0.6.0'
   s.add_development_dependency 'param_test', '~> 0.0.2'
 
   s.files         = `git ls-files`.split("\n")
