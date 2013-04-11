@@ -20,10 +20,16 @@ module Rhopalic
 
       # TODO this word definition is too simple. Needs to handle:
       # - numbers
-      phrase.scan(/[[:alpha:]]+/) do
+      phrase.scan(/\b[[:alpha:]\d]+\b/) do
         match = Regexp.last_match
         word = match[0]
         index = match.begin(0)
+
+        # Bail out on words that contain numbers, unless we can pronounce the number
+        # as a whole word.
+        word.match(/\d+/) do |match|
+          return nil if match[0].size != word.size
+        end
 
         # Checking whether the previous and this word form a known contraction
         # or possessive.
