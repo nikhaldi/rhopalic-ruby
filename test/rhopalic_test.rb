@@ -15,6 +15,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "IT'S FANCY",
     "it's'bleak matter",
     "rose's stencil",
+    "a_be_the",
   ] do |phrase|
     assert Rhopalic.letter_rhopalic?(phrase)
     assert Rhopalic.rhopalic?(phrase)
@@ -38,6 +39,7 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     "be do",
     "a be ce",
     "a it's fancy",
+    "@DannyBoo_ go get some sleep",
   ] do |phrase|
     assert !Rhopalic.rhopalic?(phrase)
   end
@@ -69,5 +71,10 @@ class Rhopalic::RhopalicTest < ActiveSupport::TestCase
     assert_equal ["two", "four"], phrase.words
     assert_equal [0, 4], phrase.indices
     assert_equal [1, 1], phrase.syllable_counts
+  end
+
+  def test_analyze_phrase_with_underscores
+    phrase = Rhopalic.analyze_phrase("two_four_eight")
+    assert_equal ["two", "four", "eight"], phrase.words
   end
 end

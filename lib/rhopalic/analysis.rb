@@ -19,16 +19,23 @@ module Rhopalic
       is_letter_rhopalic = true
       is_syllable_rhopalic = true
 
-      phrase.scan(/\b[[:alpha:]\d]+\b/) do
+      # Explanation of this regex:
+      # - [:alpha:] matches alphabetic characters throughout the whole unicode set
+      # - we use word boundaries (\b) to delineate words
+      # - however, word boundaries don't match before and after underscore, so we
+      #   explicitly treat that as a word boundary
+      # - using positive lookahead (?=...) because otherwise we'd miss words where
+      #   they are only separated by an underscore
+      phrase.scan(/(\b|_)([[:alpha:]\d]+)(?=\b|_)/) do
         match = Regexp.last_match
-        word = match[0]
+        word = match[2]
         index = match.begin(0)
         is_number = false
 
         # Bail out on words that contain numbers, unless we can pronounce the number
         # as a whole word.
-        word.match(/\d+/) do |match|
-          return nil if match[0].size != word.size
+        word.match(/\d+/) do |num_match|
+          return nil if num_match[0].size != word.size
           is_number = true
         end
 
